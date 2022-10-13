@@ -1,23 +1,19 @@
 package br.com.company.quarkus.security.runtime;
 
+import java.util.List;
+import java.util.Optional;
+
+import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
-import io.smallrye.config.ConfigMapping;
-import io.smallrye.config.WithDefault;
 
-@ConfigMapping(prefix = "br.com.company.auth")      
-@ConfigRoot(phase = ConfigPhase.BUILD_TIME)   
-public interface FilterConfiguration {
-
+@ConfigRoot(name = "br.com.company.auth", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+public class FilterConfiguration {
+    
     /**
-     * Enable logging to a file.
+     * URLs permitidas? Tipo whitelist
      */
-    @WithDefault("true")
-    boolean enable();
+    @ConfigItem(name = "urls")
+    public Optional<List<String>> urls;
 
-    /**
-     * The log format.
-     */
-    @WithDefault("%d{yyyy-MM-dd HH:mm:ss,SSS} %h %N[%i] %-5p [%c{1.}] (%t) %s%e%n")
-    String format();
 }
